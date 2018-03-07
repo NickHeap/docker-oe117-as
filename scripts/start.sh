@@ -25,6 +25,11 @@ asbman -start -name asbroker1
 
 # get appserver pid 
 pid=`ps aux|grep '[I]D=AppServer'|awk '{print $2}'`
+if [ -z "${pid}" ]
+then
+  echo "ERROR: Appserver failed to start!"
+  exit 1
+fi
 echo "Appserver running as pid: ${pid}"
 
 # keep tailing log file until appserver process exits

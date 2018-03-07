@@ -31,7 +31,7 @@ RUN mkdir -p /var/lib/openedge/base/ && mkdir -p /var/lib/openedge/code/
 COPY src/as_ping.p /var/lib/openedge/base/
 COPY src/as_activate.p /var/lib/openedge/base/
 
-COPY conf/ubroker.properties /var/lib/openedge/properties/
+COPY conf/ubroker.properties /usr/dlc/properties/
 
 # add startup script
 WORKDIR /usr/wrk
@@ -46,15 +46,15 @@ ENV \
  DLC="/usr/dlc" \
  WRKDIR="/usr/wrk" \
  PROCFG="" \
- APPSERVER_PORT="21000" \
+ APPSERVER_PORT="3090" \
  APPSERVER_MINPORT="21100" \
  APPSERVER_MAXPORT="21200" \
- ADMINSERVER_PORT="3090"
+ ADMINSERVER_PORT="20931"
 
 # volume for application code
 VOLUME /var/lib/openedge/code/
 
-EXPOSE $APPSERVER_PORT $ADMINSERVER_PORT $APPSERVER_MINPORT-$APPSERVER_MINPORT
+EXPOSE $ADMINSERVER_PORT $APPSERVER_PORT $APPSERVER_MINPORT-$APPSERVER_MINPORT
 
 # Run start.sh under Tini
 CMD ["/usr/wrk/start.sh"]
