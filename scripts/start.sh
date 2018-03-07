@@ -3,7 +3,6 @@
 set -e
 
 signal_handler() {
-    echo "Shutting down database..." 
     # stop the appserver and adminserver
     echo "Stopping asbroker1 appserver"
     asbman -stop -name asbroker1
