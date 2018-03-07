@@ -23,22 +23,11 @@ proadsv -start
 echo "Starting appserver"
 asbman -start -name asbroker1
 
-# wait for db to be serving 
-# while true
-# do
-#   echo "Checking db status..."
-#   proutil ${openedge_db} -C holder || dbstatus=$? && true
-#   if [ ${dbstatus} -eq 16 ]
-#   then
-#     break
-#   fi
-#   sleep 1
-# done
-# # get db server pid 
-# pid=`ps aux|grep '[_]aspro'|awk '{print $2}'`
-# echo "Server running as pid: ${pid}"
+# get appserver pid 
+pid=`ps aux|grep '[I]D=AppServer'|awk '{print $2}'`
+echo "Appserver running as pid: ${pid}"
 
-# keep tailing log file until db server process exits
+# keep tailing log file until appserver process exits
 tail --pid=${pid} -f asbroker1.server.log & wait ${!}
 
 # things didn't go well
