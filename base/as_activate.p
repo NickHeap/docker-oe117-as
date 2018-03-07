@@ -14,7 +14,7 @@ IF cDbName <> ?
   AND cDbName <> ""
 THEN DO:
   IF NOT CONNECTED(cDbName) THEN DO:
-    MESSAGE SUBSTITUTE("Connecting database &1...", cDbName).
+    MESSAGE SUBSTITUTE("Connecting database '&1'...", cDbName).
     IF cDbAlias <> ?
       AND cDbAlias <> ""
     THEN DO:
@@ -30,7 +30,7 @@ THEN DO:
     END.
   END.
   ELSE DO:
-    MESSAGE "Database already connected.".
+    MESSAGE SUBSTITUTE("Database '&1' already connected.", cDbName).
   END.
 END.
 ELSE DO:

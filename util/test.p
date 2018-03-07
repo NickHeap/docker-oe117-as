@@ -1,0 +1,18 @@
+DEFINE VARIABLE UserName AS CHARACTER.
+DEFINE VARIABLE Pwd AS CHARACTER.
+DEFINE VARIABLE happsrv AS HANDLE NO-UNDO.
+CREATE SERVER happsrv.
+
+IF happsrv:CONNECT("-URL AppServerDC://localhost:3090/asbroker1") 
+THEN DO :
+  MESSAGE "CONNECTED".
+  
+  DEFINE VARIABLE cPingResult AS CHARACTER NO-UNDO.
+  RUN as_ping.p ON happsrv
+    (OUTPUT cPingResult).
+  happsrv:DISCONNECT().
+
+  MESSAGE SUBSTITUTE("Ping result: &1", cPingResult).
+END.
+
+DELETE OBJECT happsrv.

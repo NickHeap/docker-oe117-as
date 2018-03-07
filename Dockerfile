@@ -28,8 +28,8 @@ COPY --from=as_install /usr/dlc/ /usr/dlc/
 
 # the directories for the appserver code
 RUN mkdir -p /var/lib/openedge/base/ && mkdir -p /var/lib/openedge/code/
-COPY src/as_ping.p /var/lib/openedge/base/
-COPY src/as_activate.p /var/lib/openedge/base/
+COPY base/as_ping.r /var/lib/openedge/base/
+COPY base/as_activate.r /var/lib/openedge/base/
 
 COPY conf/ubroker.properties /usr/dlc/properties/
 
