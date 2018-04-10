@@ -13,7 +13,7 @@ signal_handler() {
     exit 0
 }
 # trap SIGTERM and call the handler to cleanup processes
-trap 'kill ${!}; signal_handler' SIGTERM SIGINT
+trap 'signal_handler' SIGTERM SIGINT
 
 # first start the admin server
 echo "Starting admin server"
