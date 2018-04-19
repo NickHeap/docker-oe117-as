@@ -24,12 +24,34 @@ echo "Starting appserver"
 asbman -start -name asbroker1
 
 # get appserver pid 
-pid=`ps aux|grep '[I]D=AppServer'|awk '{print $2}'`
+echo "Waiting for appserver to start..."
+
+RETRIES=0
+while true
+do
+  if [ "${RETRIES}" -gt 10 ]
+  then
+    break
+  fi
+
+  pid=`ps aux|grep '[I]D=AppServer'|awk '{print $2}'`
+  if [ ! -z "${pid}" ]
+  then
+    case "${pid}" in
+      ''|*[!0-9]*) continue ;;
+      *) break ;;
+    esac
+  fi
+  sleep 1
+  RETRIES=$((RETRIES+1))
+done
+# did we get the pid?
 if [ -z "${pid}" ]
 then
-  echo "ERROR: Appserver failed to start!"
+  echo "$(date +%F_%T) ERROR: AppServer process not found exiting."
   exit 1
 fi
+
 echo "Appserver running as pid: ${pid}"
 
 # keep tailing log file until appserver process exits
